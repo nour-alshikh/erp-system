@@ -6,10 +6,18 @@ namespace App\Services\s01;
 
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
 
-final class SettingsForm
+final class SettingsService
 {
 
+    public static function  tableSchema(): array
+    {
+        return [
+            TextColumn::make("key"),
+            TextColumn::make("value"),
+        ];
+    }
     public static function  editSchema(): array
     {
         return [

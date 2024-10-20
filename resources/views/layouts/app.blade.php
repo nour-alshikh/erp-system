@@ -36,7 +36,7 @@
         <main class="min-h-screen">
             <div class="h-screen grid grid-cols-5 grid-rows-1">
                 <div class="col-span-1 row-span-1 bg-gray-800">
-                    @include('partials.sidebar')
+                    @include('partials._sidebar')
                 </div>
                 <div class="col-span-4 row-span-1 ">
                     <div class="px-4 py-6">

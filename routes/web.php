@@ -2,8 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
-Route::view('settings', 'pages/p01/settings')->name('settings');
+
+
+Route::middleware(['auth'])->group(function () {
+
+    Route::view('/', 'dashboard');
+    Route::view('settings', 'pages/p01/settings')->name('settings');
+    Route::view('treasuries', 'pages/p02/treasuries')->name('treasuries');
+});
+
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
