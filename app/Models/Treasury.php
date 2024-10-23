@@ -9,6 +9,7 @@ class Treasury extends Model
     protected $table = "treasuries";
     protected $guarded = ['id'];
 
+
     public function addedByUser()
     {
         return $this->belongsTo(User::class, 'added_by');

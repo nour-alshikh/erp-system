@@ -2,12 +2,14 @@
 
 namespace App\Services\s02;
 
+use App\Models\Treasury;
 use App\Models\User;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\TernaryFilter;
@@ -31,6 +33,10 @@ final class TreasuryService
             ToggleColumn::make('is_active'),
             ToggleColumn::make('is_master'),
             TextColumn::make('date'),
+            SelectColumn::make('main_treasury_id')
+                ->options(function (): array {
+                    return Treasury::all()->pluck('name', 'id')->all();
+                }),
             TextColumn::make('addedByUser.name')->label('Added By'),
             TextColumn::make('updatedByUser.name')->label('Updated By'),
         ];
@@ -68,6 +74,12 @@ final class TreasuryService
                     })
                     ->required()
                     ->searchable(),
+                Select::make('main_treasury_id')
+                    ->options(function (): array {
+                        return Treasury::all()->pluck('name', 'id')->all();
+                    })
+                    ->label('Main Treasury')
+                    ->searchable(),
                 DatePicker::make('date')
                     ->required(),
 
@@ -104,6 +116,14 @@ final class TreasuryService
                     })
                     ->required()
                     ->searchable(),
+
+                Select::make('main_treasury_id')
+                    ->options(function (): array {
+                        return Treasury::all()->pluck('name', 'id')->all();
+                    })
+                    ->label('Main Treasury')
+                    ->searchable(),
+
                 DatePicker::make('date')
                     ->required(),
 

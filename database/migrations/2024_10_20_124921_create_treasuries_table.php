@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('is_active');
             $table->integer('last_receipt_exchange');
             $table->integer('last_receipt_collect');
+            $table->integer('main_treasury_id')->nullable();
             $table->integer('added_by');
             $table->integer('updated_by');
             $table->integer('company_code');
