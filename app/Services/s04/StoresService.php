@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Services\s02;
+namespace App\Services\s04;
 
 use App\Models\Setting;
-use App\Models\Treasury;
 use App\Models\User;
 use Carbon\Carbon;
 use Filament\Forms\Components\Checkbox;
@@ -12,13 +11,12 @@ use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Tables\Columns\SelectColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Illuminate\Support\Facades\Auth;
 
-final class TreasuryService
+final class StoresService
 {
 
     public static function  tableSchema(): array
@@ -27,20 +25,22 @@ final class TreasuryService
             TextColumn::make('counter')
                 ->label('#')
                 ->rowIndex(),
+
             TextColumn::make('name')
                 ->searchable(isIndividual: true)
                 ->sortable(),
+            TextColumn::make('phone')
+                ->searchable(isIndividual: true)
+                ->sortable(),
+            TextColumn::make('address')
+                ->searchable(isIndividual: true)
+                ->sortable(),
 
-            TextColumn::make('last_receipt_exchange'),
-            TextColumn::make('last_receipt_collect'),
             // TextColumn::make('company_code'),
             ToggleColumn::make('is_active'),
-            ToggleColumn::make('is_master'),
+
             TextColumn::make('date'),
-            SelectColumn::make('main_treasury_id')
-                ->options(function (): array {
-                    return Treasury::all()->pluck('name', 'id')->all();
-                }),
+
             // TextColumn::make('addedByUser.name')->label('Added By'),
             // TextColumn::make('updatedByUser.name')->label('Updated By'),
         ];
@@ -49,7 +49,7 @@ final class TreasuryService
     {
         return [
             TernaryFilter::make('is_active'),
-            TernaryFilter::make('is_master'),
+
         ];
     }
     public static function  createSchema(): array
@@ -60,23 +60,17 @@ final class TreasuryService
                     Grid::make(3)->schema([
                         TextInput::make('name')
                             ->required()->columnSpanFull(),
-                        TextInput::make('last_receipt_exchange')
+
+                        TextInput::make('phone')
                             ->required(),
-                        TextInput::make('last_receipt_collect')
+                        TextInput::make('address')
                             ->required(),
-                        Select::make('main_treasury_id')
-                            ->options(function (): array {
-                                return Treasury::all()->pluck('name', 'id')->all();
-                            })
-                            ->label('Main Treasury')
-                            ->searchable(),
+
                         Checkbox::make('is_active')
                             ->inline(),
-                        Checkbox::make('is_master')
-                            ->inline(),
+
                     ])
                 ]),
-
             Section::make()
                 ->schema([
                     Grid::make(3)->schema([
@@ -118,23 +112,17 @@ final class TreasuryService
                     Grid::make(3)->schema([
                         TextInput::make('name')
                             ->required()->columnSpanFull(),
-                        TextInput::make('last_receipt_exchange')
+
+                        TextInput::make('phone')
                             ->required(),
-                        TextInput::make('last_receipt_collect')
+                        TextInput::make('address')
                             ->required(),
-                        Select::make('main_treasury_id')
-                            ->options(function (): array {
-                                return Treasury::all()->pluck('name', 'id')->all();
-                            })
-                            ->label('Main Treasury')
-                            ->searchable(),
+
                         Checkbox::make('is_active')
                             ->inline(),
-                        Checkbox::make('is_master')
-                            ->inline(),
+
                     ])
                 ]),
-
             Section::make()
                 ->schema([
                     Grid::make(3)->schema([
