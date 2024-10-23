@@ -1,0 +1,27 @@
+<?php
+
+namespace {{ namespace }};
+
+{{ factoryImport }}
+use Illuminate\Database\Eloquent\Model;
+
+class {{ class }} extends Model
+{
+    {{ factory }}
+
+    protected $table = "";
+    // protected $guarded = ['id'];
+    // protected $fillable = [];
+
+
+    public function addedByUser()
+    {
+        return $this->belongsTo(User::class, 'added_by');
+    }
+    public function updatedByUser()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+
+}

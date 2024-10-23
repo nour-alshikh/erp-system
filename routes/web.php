@@ -9,6 +9,7 @@ Route::middleware(['auth'])->group(function () {
     Route::view('/', 'dashboard');
     Route::view('settings', 'pages/p01/settings')->name('settings');
     Route::view('treasuries', 'pages/p02/treasuries')->name('treasuries');
+    Route::view('invoice-types', 'pages/p03/invoices_types')->name('invoice-types');
 });
 
 
